@@ -1,0 +1,161 @@
+//START GAME
+BEGIN GAME
+
+DISPLAY "Jungle Temple Adventure"
+DISPLAY "Escape the ancient temple"
+
+ASK player name
+
+SET current_location = "Entrance Chamber"
+SET inventory = empty list
+SET game_over = FALSE
+SET saved_explorer = FALSE
+
+//GAME DATA
+STORE map of rooms with directions:
+    each room has north / south / east / west paths
+
+STORE items in rooms:
+    each room may contain one item
+
+STORE room descriptions:
+    each room has a short story text
+
+
+// SHOW GAME STATUS
+PROCEDURE show_status:
+
+    DISPLAY current location
+    DISPLAY inventory
+    DISPLAY room description
+
+    DISPLAY available directions:
+        FOR each direction in current room
+            SHOW direction → connected room
+END PROCEDURE
+// MOVE PLAYER
+PROCEDURE move_player:
+
+    INPUT direction (north/south/east/west)
+
+    IF direction is not valid THEN
+        DISPLAY "You cannot go that way"
+        STOP
+
+    SET new_location based on direction
+
+    IF new_location is locked AND required item NOT in inventory THEN
+        DISPLAY lock message
+        STOP
+
+    UPDATE current_location = new_location
+
+    DISPLAY "You moved to new location"
+
+END PROCEDURE
+// PICK ITEM
+PROCEDURE pick_item:
+    IF current location contains an item THEN
+        SET item = item in current location
+        IF inventory has 4 items THEN
+
+            DISPLAY "Bag is full"
+
+            ASK player:
+                "Do you want to drop an item? (yes/no)"
+
+            IF answer is not "yes" THEN
+                DISPLAY "You leave the item"
+                STOP
+            ENDIF
+
+            DISPLAY inventory
+
+            ASK which item to drop
+
+            IF selected item exists in inventory THEN
+                REMOVE selected item from inventory
+                PLACE dropped item in current room
+                DISPLAY "Item dropped"
+
+            ELSE
+                DISPLAY "Invalid item"
+                STOP
+            ENDIF
+        ENDIF
+
+        ADD new item to inventory
+        REMOVE item from room
+        DISPLAY "Item picked"
+
+    ELSE
+        DISPLAY "No item here"
+
+END PROCEDURE
+END PROCEDURE
+// DROP ITEM
+PROCEDURE drop_item:
+
+    DISPLAY inventory
+
+    INPUT item to drop
+
+    IF item exists in inventory THEN
+        REMOVE item from inventory
+        PLACE item in current location
+        DISPLAY "item dropped"
+    ELSE
+        DISPLAY "item not in bag"
+
+END PROCEDURE
+// USE ITEM
+PROCEDURE use_item:
+    INPUT item
+
+    IF item = "bandages" AND location = "Hidden Tomb" THEN
+        SET saved_explorer = TRUE
+        DISPLAY "Explorer saved"
+
+    ELSE IF item = "stone tablet" AND location = "Exit Gate" THEN
+
+        IF saved_explorer = TRUE THEN
+            DISPLAY "You escaped!"
+            SET game_over = TRUE
+        ELSE
+            DISPLAY "Save explorer first"
+        ENDIF
+
+    ELSE
+        DISPLAY "Cannot use here"
+
+END PROCEDURE
+// MAIN GAME LOOP
+PROCEDURE run_game:
+
+    WHILE game_over = FALSE DO
+
+        CALL show_status
+
+        DISPLAY actions:
+            move, pick, drop, use, inventory
+        INPUT action
+        IF action = move THEN
+            CALL move_player
+
+        ELSE IF action = pick THEN
+            CALL pick_item
+
+        ELSE IF action = drop THEN
+            CALL drop_item
+
+        ELSE IF action = use THEN
+            CALL use_item
+
+        ELSE IF action = inventory THEN
+            DISPLAY inventory
+        ELSE
+            DISPLAY "Invalid action"
+    END WHILE
+END PROCEDURE
+//END GAME
+GAME ENDS when player escapes the temple
