@@ -1,2 +1,8 @@
-# My-Python-Based-Adventure-Game
-My First Ever text based  Adventure Game written using python while I was attending NCC lvl3
+# My First Ever text based  Adventure Game written using python while I was attending NCC lvl3
+
+The player starts in the Entrance Chamber, with the door to the next chamber having fallen behind them. The only way to go is to the Main Hall, which leads to a number of areas within the temple. Here the player is able to explore various paths to discover valuable items and open new locations.
+ First, the player may go east to the Armory Ruins where the player will find the Ancient Key, required to unlock the Sacred Shrine. The player can also continue eastward of the Armory to the Storage Room to collect a Torch, which is needed to safely pass through the dark Underground River later in the game. 
+When returning to the Main Hall, the player can move into the Sacred Shrine by passing through library , but Ancient Key is needed, in order to unlock shrine. The player can enter the Healing Room, where Bandages are located, inside the shrine. These are needed to assist the injured explorer who was found later in the temple. 
+On returning to the Sacred Shrine, the player is allowed to go further south into the Trap Corridor, where a broken path stands in the way. The player has to locate a Rope in order to pass, which is found in the Puzzle Chamber. Once the player has used the rope, he or she can proceed to explore further into the temple. 
+The player should also go to the Library, which is linked to the Main Hall, to get a Stone Tablet, which will hold the information required to unlock the final exit. Lastly, the player goes south along the Underground River (with the torch), to the Hidden Tomb, where the wounded explorer is found. Once the player has used the bandages, he or she can go to the Exit Gate and use the Stone Tablet to unlock it. 
+The game is won when the player manages to save the wounded explorer and to make a successful escape through the main gate.
